@@ -8,7 +8,7 @@ app.use('/api/v1/tasks/',tasks);
 app.get('/',(req,res)=>{
     res.send('<h1>Task Manager app</h1>');
 })
-port=3000;
+const port=3000;
 
 const start=async()=>{
     try {
