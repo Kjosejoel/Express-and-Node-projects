@@ -32,11 +32,34 @@ const postTasks = (req, res) => {
 };
 
 
-const patchTasks=(req,res)=>{
-    return res.send('Sending patch requests');
+const patchTasks=async (req,res)=>{
+    try{
+        const {id:TaskID}=req.params;
+        const updatetask=await Task_schema.findOneAndUpdate({_id:TaskID},req.body,{
+            new:true,
+            runValidators:true
+        })
+        if(!updatetask){
+            return res.status(404).json({msg:`No task with id: ${taskID}`});
+        }
+        return res.status(200).json(updatetask);
+    }
+    catch(err){
+        res.status(400).json({error:err.message});
+    }
 }
 
-const deleteTasks=(req,res)=>{
-    return res.send('Deleting specified task');
+const deleteTasks=async (req,res)=>{
+    try{
+        const {id:TaskID}=req.params;
+        const deletedTask=await Task_schema.findOneAndDelete({_id:TaskID});
+        if(!deletedTask){
+            return res.status(404).json({msg:`No task with id: ${taskID}`});
+        }
+        return res.status(200).json({deletedTask});
+    }
+    catch(err){
+        res.status(400).json({error:err.message});
+    }
 }
 module.exports = {getAllTasks,getSingleTask,postTasks,patchTasks,deleteTasks};

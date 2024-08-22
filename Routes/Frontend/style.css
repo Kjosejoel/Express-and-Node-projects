@@ -1,0 +1,57 @@
+body {
+    background-color: hsl(0, 0%, 100%);
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0; /* Remove default body margin */
+    height: 100vh; /* Ensure full viewport height */
+}
+
+#flex {
+    display: flex;
+    height: 100vh; /* Full viewport height for flex container */
+}
+
+#left-part {
+    width: 25vw;
+    height: 100vh;
+    background-color: #f4f4f4; /* Optional: add a background color for contrast */
+}
+
+#main-body {
+    width: 75vw;
+    height: 100vh;
+    background-image: url("/svgs/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#search-bar {
+    margin-top: 25px;
+    font-size: 15px;
+}
+
+#Main-heading {
+    color: white;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px; /* Space below heading */
+}
+
+#main-Box {
+    min-height: 100vh; /* Ensure minimum height for scrolling, if needed */
+    display: flex;
+    align-items: center;
+    margin-top: 20px; /* Adjust this value as needed */
+}
+
+#main-Box input.task {
+    margin-right: 10px; /* Space between input and button */
+    flex: 1; /* Takes available space */
+}
+
+#main-Box button.task img {
+    vertical-align: middle; /* Aligns the image in the middle */
+}
