@@ -11,13 +11,13 @@ body {
 }
 
 #left-part {
-    width: 25vw;
+    width: 15vw;
     height: 100vh;
     background-color: #f4f4f4; /* Optional: add a background color for contrast */
 }
 
 #main-body {
-    width: 75vw;
+    width: 85vw;
     height: 100vh;
     background-image: url("/svgs/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg");
     background-size: cover;
@@ -39,12 +39,17 @@ body {
     margin: 0;
     margin-bottom: 20px; /* Space below heading */
 }
-
-#main-Box {
-    min-height: 100vh; /* Ensure minimum height for scrolling, if needed */
+form{
     display: flex;
-    align-items: center;
-    margin-top: 20px; /* Adjust this value as needed */
+    flex-direction: column;
+}
+#main-Box {
+    display: flex;
+    min-height: 88vh; /* Ensure minimum height for scrolling, if needed */
+    text-align: center;
+    align-items:flex-end;
+    /* border: 2px solid red; */
+
 }
 
 #main-Box input.task {
@@ -54,4 +59,27 @@ body {
 
 #main-Box button.task img {
     vertical-align: middle; /* Aligns the image in the middle */
+}
+.features{
+    margin: 4px 0px;
+    width: 15vw;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    height: 36px;
+}
+#left-part div:nth-child(2){
+    margin-top: 12px;
+}
+.features:active{
+    background-color: rgb(188, 188, 188);
+}
+#task-name{
+    font-size: 21px;
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 10px;
+    height: 28px;
+}
+#plus{
+    height: 33px;
 }
