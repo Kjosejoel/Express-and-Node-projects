@@ -1,31 +1,32 @@
 body {
     background-color: hsl(0, 0%, 100%);
     font-family: 'Times New Roman', Times, serif;
-    margin: 0; /* Remove default body margin */
-    height: 100vh; /* Ensure full viewport height */
+    margin: 0;
+    height: 100vh;
 }
 
 #flex {
     display: flex;
-    height: 100vh; /* Full viewport height for flex container */
+    height: 100vh;
 }
 
 #left-part {
     width: 15vw;
     height: 100vh;
-    background-color: #f4f4f4; /* Optional: add a background color for contrast */
+    background-color: #f4f4f4;
 }
 
 #main-body {
     width: 85vw;
     height: 100vh;
-    background-image: url("/svgs/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg");
+    background-image: url("./svgs/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
 }
 
 #search-bar {
@@ -37,30 +38,37 @@ body {
     color: white;
     text-align: center;
     margin: 0;
-    margin-bottom: 20px; /* Space below heading */
+    margin-bottom: 20px;
 }
-form{
+
+form {
     display: flex;
     flex-direction: column;
 }
+
 #main-Box {
     display: flex;
-    min-height: 88vh; /* Ensure minimum height for scrolling, if needed */
+    min-height: 88vh;
     text-align: center;
-    align-items:flex-end;
-    /* border: 2px solid red; */
-
+    align-items: flex-end;
 }
 
-#main-Box input.task {
-    margin-right: 10px; /* Space between input and button */
-    flex: 1; /* Takes available space */
+#content-box {
+    flex: 1;
+    display: flex;
+    position: relative;
+}
+
+#content-box input.task {
+    margin-right: 10px;
+    flex: 1;
 }
 
 #main-Box button.task img {
-    vertical-align: middle; /* Aligns the image in the middle */
+    vertical-align: middle;
 }
-.features{
+
+.features {
     margin: 4px 0px;
     width: 15vw;
     text-align: left;
@@ -68,18 +76,58 @@ form{
     cursor: pointer;
     height: 36px;
 }
-#left-part div:nth-child(2){
+
+#left-part div:nth-child(2) {
     margin-top: 12px;
 }
-.features:active{
+
+.features:active {
     background-color: rgb(188, 188, 188);
 }
-#task-name{
+
+#task-name {
     font-size: 21px;
-    font-family:'Times New Roman', Times, serif;
+    font-family: 'Times New Roman', Times, serif;
     border-radius: 10px;
     height: 28px;
 }
-#plus{
+
+#plus {
     height: 33px;
+}
+
+#calendar-icon {
+    position: absolute;
+    top: 5.5px;
+    right: 30px;
+}
+
+#tiles-container {
+    border: 2px solid red;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    max-height: 80vh;
+    overflow: auto;
+    background-color: yellow;
+    position: relative;
+}
+
+.tile {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    margin: 10px;
+    overflow: auto;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid blue;
+    background-color: lightgray;
 }
