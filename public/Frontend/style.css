@@ -99,21 +99,21 @@ form {
 #calendar-icon {
     position: absolute;
     top: 5.5px;
-    right: 30px;
+    right: 70px;
 }
 
 #tiles-container {
-    border: 2px solid red;
     padding: 10px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    max-height: 80vh;
+    position: absolute;
+    top: 7%;
+    left: 5%;
+    width: 90%; /* Ensure width is set */
+    max-height: 70vh;
     overflow: auto;
-    background-color: yellow;
-    position: relative;
+    box-sizing: border-box; /* Ensure padding and border are included in width */
+    z-index: 2; /* Ensure it's above the background image */
 }
 
 .tile {
@@ -121,13 +121,24 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
-    width: calc(33.333% - 20px);
+    width: 80%;
+    max-height: 12vh;
     box-sizing: border-box;
     margin: 10px;
     overflow: auto;
-    max-height: 300px;
     display: flex;
     flex-direction: column;
     border: 2px solid blue;
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255); /* For debugging */
+}
+
+.icons {
+    display: none;
+    position: absolute;
+    top: 5.5px;/* Adjust right positioning to ensure visibility */
+    z-index: 3; /* Ensure icons are above other content */
+}
+
+#mimportant-icon {
+    right: 30px; /* Adjust the positioning to avoid overlap with calendar icon */
 }

@@ -26,6 +26,9 @@
                 <button class="features"><img src="./svgs/plan-svgrepo-com.svg" alt=""> Planned</button>
             </div>
             <div>
+                <button class="features"><img src="./svgs/completed.svg" alt=""> Completed</button>
+            </div>
+            <div>
                 <button class="features"><img src="./svgs/tasks.svg" alt=""> Tasks</button>
             </div>
         </section>
@@ -34,8 +37,9 @@
                 <h1 id="Main-heading">Task Manager App</h1>
                 <div id="main-Box">
                     <div id="content-box">
-                        <input type="text" class="task" id="task-name" placeholder="Add a Task eg. Pay Utilities">
-                        <img src="./svgs/calendar-date-schedule-svgrepo-com.svg" alt="nope" id="calendar-icon">
+                        <input type="text" class="task" id="task-name" oninput="toggleIcons()" placeholder="Add a Task eg. Pay Utilities">
+                        <img src="./svgs/calendar-date-schedule-svgrepo-com.svg" alt="nope" id="calendar-icon" class="icons">
+                        <img src="./svgs/mark-important.svg" alt="nope" id="mimportant-icon" class="icons">
                     </div>
                     <button class="task" id="plus"><img src="./svgs/add.svg" alt="not found" class="task"></button>
                 </div>

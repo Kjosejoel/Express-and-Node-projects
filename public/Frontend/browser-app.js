@@ -1,14 +1,15 @@
 function performSearch() {
+  const searchValue = document.getElementById('search-bar').value.toLowerCase();
   axios.get('/api/v1/tasks')
     .then(response => {
       console.log("Tasks fetched successfully:", response.data);
-      // Handle the response data (e.g., update the UI with the tasks)
+      // Handle the response data and filter based on search value
+      displayFilteredTiles(response.data.tasks, searchValue);
     })
     .catch(error => {
       console.error("Error fetching tasks:", error);
     });
 }
-
 const datePicker = flatpickr("#calendar-icon", {
   dateFormat: "d/m/Y", // Set date format to dd/mm/yyyy
   allowInput: true, // Allow manual input of the date
@@ -28,11 +29,7 @@ async function fetchData() {
     const data = response.data;
     console.log('Fetched Data:', data); // Debugging line
     // Access the "tasks" property from the response
-    if (Array.isArray(data.tasks)) {
-      displayTiles(data.tasks);
-    } else {
-      console.error('Data.tasks is not an array:', data.tasks);
-    }
+    displayTiles(data.tasks);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -41,17 +38,52 @@ async function fetchData() {
 function displayTiles(data) {
   const container = document.getElementById('tiles-container');
   container.innerHTML = ''; // Clear existing tiles
-  console.log('Data to display:', data); // Debugging line
-  data.forEach(item => {
+
+  data.forEach(({ name, completed,date }) => { // Destructure the properties
     const tile = document.createElement('div');
     tile.className = 'tile';
-
-    // Convert JSON object to string for display
-    const jsonData = JSON.stringify(item, null, 2); // Pretty-print JSON data
-
+    const formattedDate = date ? new Date(date).toLocaleDateString('en-GB'):'NA';
+    // Display only the 'name' and 'completed' properties
     tile.innerHTML = `
-        <pre>${jsonData}</pre> <!-- Use <pre> to preserve formatting -->
+        <div><strong>Name:</strong> ${name}</div>
+        <div><strong>Completed:</strong> ${completed ? 'Yes' : 'No'}</div>
+        <div><strong>Date:</strong> ${formattedDate}</div>
     `;
     container.appendChild(tile);
   });
+}
+function displayFilteredTiles(tasks, searchValue) {
+  const container = document.getElementById('tiles-container');
+  container.innerHTML = ''; // Clear existing tiles
+
+  const filteredTasks = tasks.filter(task => 
+    task.name.toLowerCase().includes(searchValue) || 
+    task._id.toLowerCase().includes(searchValue)
+  );
+
+  console.log('Filtered Data to display:', filteredTasks);
+
+  filteredTasks.forEach(item => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    const formattedDate = item.date ? new Date(item.date).toLocaleDateString('en-GB') : 'NA';
+    tile.innerHTML = `
+        <div><strong>Name:</strong> ${item.name}</div>
+        <div><strong>Completed:</strong> ${item.completed ? 'Yes':'No'}</div>
+        <div><strong>Date:</strong> ${formattedDate}</div>
+    `;
+    container.appendChild(tile);
+  });
+}
+
+function toggleIcons() {
+  const searchValue = document.getElementById('task-name').value.trim();
+  const icons = document.querySelectorAll('.icons'); // Select all icons
+
+  // Toggle visibility based on whether searchValue is empty or not
+  if (searchValue) {
+    icons.forEach(icon => icon.style.display = 'block'); // Show icons
+  } else {
+    icons.forEach(icon => icon.style.display = 'none'); // Hide icons
+  }
 }

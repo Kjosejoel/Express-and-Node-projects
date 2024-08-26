@@ -9,6 +9,14 @@ const schema=new mongoose.Schema({
     completed:{
         type:Boolean,
         default:false
+    },
+    important:{
+        type:Boolean,
+        default:false,
+    },
+    date:{
+        type:Date,
+        default:Date.now
     }
 })
 
