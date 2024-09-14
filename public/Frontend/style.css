@@ -128,8 +128,9 @@ form {
     overflow: auto;
     display: flex;
     flex-direction: column;
+    position: relative; /* Make sure it's relative for absolutely positioned children */
     border: 2px solid blue;
-    background-color: rgb(255, 255, 255); /* For debugging */
+    background-color: rgb(255, 255, 255);
 }
 
 .icons {
@@ -137,8 +138,36 @@ form {
     position: absolute;
     top: 5.5px;/* Adjust right positioning to ensure visibility */
     z-index: 3; /* Ensure icons are above other content */
+    cursor: pointer;
 }
 
 #mimportant-icon {
     right: 30px; /* Adjust the positioning to avoid overlap with calendar icon */
+}
+  
+#mimportant-icon.active {
+color: gold; /* Highlight color when active */
+}
+
+.completed-task {
+    text-decoration: line-through;
+    color: grey;
+}
+
+.tile .delete-icon {
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    top: 10px; /* Position it at the top-right corner */
+    right: 10px;
+    width: 20px; /* Adjust the size as needed */
+    height: 30px;
+}
+
+.tile:hover .delete-icon {
+    display: block; /* Ensure it shows on hover */
+}
+
+.tile .delete-icon {
+    z-index: 10; /* Ensures it's above other elements */
 }
