@@ -230,3 +230,41 @@ async function fetchPlannedTasks() {
     console.error('Error fetching planned tasks:', error);
   }
 }
+
+async function fetchCompletedTasks() {
+  try {
+    // Make a request to fetch all completed tasks
+    const response = await axios.get('/api/v1/tasks/completed');
+    console.log('Fetched Completed Tasks:', response.data);
+
+    if (response.data.tasks.length > 0) {
+      displayTiles(response.data.tasks); // Reuse the displayTiles function to show tasks
+    } else {
+      console.log('No completed tasks found.');
+      displayTiles([]); // Clear the tiles if no tasks found
+    }
+  } catch (error) {
+    console.error('Error fetching completed tasks:', error);
+  }
+}
+
+async function fetchTodayTasks() {
+  try {
+    // Get today's date in ISO format (YYYY-MM-DD)
+    const today = new Date().toISOString().split('T')[0];
+
+    // Send GET request to fetch tasks for today
+    const response = await axios.get(`/api/v1/tasks/today?date=${today}`);
+    console.log("Fetched Today's Tasks:", response.data);
+
+    // Check if tasks are available and display them
+    if (response.data.tasks.length > 0) {
+      displayTiles(response.data.tasks); // Call a function to display the tasks
+    } else {
+      console.log('No tasks scheduled for today.');
+      displayTiles([]); // Clear the task display if no tasks found
+    }
+  } catch (error) {
+    console.error("Error fetching today's tasks:", error);
+  }
+}

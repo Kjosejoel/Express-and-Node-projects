@@ -104,4 +104,41 @@ const getPlannedTasks = async (req, res) => {
     }
 };
 
-module.exports = { getAllTasks, getSingleTask, postTasks, patchTasks, deleteTasks, getAllTasks1, getPlannedTasks };
+const getCompletedTasks = async (req, res) => {
+    try {
+        // Fetch all tasks where completed is true
+        const completedTasks = await Task_schema.find({ completed: true });
+
+        if (!completedTasks.length) {
+            return res.status(404).json({ msg: "No completed tasks found." });
+        }
+
+        res.status(200).json({ success: true, tasks: completedTasks });
+    } catch (err) {
+        res.status(500).json({ success: false, msg: err.message });
+    }
+};
+
+const getTodayTasks = async (req, res) => {
+    try {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Set to the start of the day for comparison
+  
+      const tomorrow = new Date();
+      tomorrow.setDate(today.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0); // Start of tomorrow for upper bound comparison
+  
+      // Find tasks where the date is today (greater than or equal to today but less than tomorrow)
+      const todayTasks = await Task_schema.find({ date: { $gte: today, $lt: tomorrow } });
+  
+      if (todayTasks.length === 0) {
+        return res.status(404).json({ msg: 'No tasks scheduled for today.' });
+      }
+  
+      res.status(200).json({ success: true, tasks: todayTasks });
+    } catch (err) {
+      res.status(500).json({ success: false, msg: err.message });
+    }
+  };
+
+module.exports = { getAllTasks, getSingleTask, postTasks, patchTasks, deleteTasks, getAllTasks1, getPlannedTasks, getCompletedTasks,getTodayTasks };

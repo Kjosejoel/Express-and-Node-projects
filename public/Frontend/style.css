@@ -19,12 +19,12 @@ body {
 #main-body {
     width: 85vw;
     height: 100vh;
-    background-image: url("./svgs/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass.jpg");
+    background-image: url("./svgs/pexels-myca-2043739.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 25px;
     box-sizing: border-box;
     position: relative;
 }
