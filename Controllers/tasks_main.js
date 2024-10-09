@@ -40,7 +40,7 @@ const patchTasks=async (req,res)=>{
             runValidators:true
         })
         if(!updatetask){
-            return res.status(404).json({msg:`No task with id: ${taskID}`});
+            return res.status(404).json({msg:`No task with id: ${TaskID}`});
         }
         return res.status(200).json(updatetask);
     }
@@ -54,7 +54,7 @@ const deleteTasks=async (req,res)=>{
         const {id:TaskID}=req.params;
         const deletedTask=await Task_schema.findOneAndDelete({_id:TaskID});
         if(!deletedTask){
-            return res.status(404).json({msg:`No task with id: ${taskID}`});
+            return res.status(404).json({msg:`No task with id: ${TaskID}`});
         }
         return res.status(200).json({deletedTask});
     }
@@ -62,4 +62,46 @@ const deleteTasks=async (req,res)=>{
         res.status(400).json({error:err.message});
     }
 }
-module.exports = {getAllTasks,getSingleTask,postTasks,patchTasks,deleteTasks};
+
+const getAllTasks1 = async (req, res) => {
+    try {
+        const { important } = req.query;
+        let tasks = [];
+
+        if (typeof important !== 'undefined') {
+            // If 'important' query param exists, filter tasks based on its value
+            const isImportant = important === 'true'; // Convert the query to a boolean
+            console.log("Is Important:", isImportant); // Log the converted boolean
+            tasks = await Task_schema.find({ important: isImportant });
+        } else {
+            console.log('No important tasks found.');
+            displayTiles([]); // Clear existing tiles
+        }
+
+        res.status(200).json({ success: true, tasks });
+        console.log(req.query);
+    } catch (err) {
+        res.status(500).json({ success: false, msg: err.message });
+    }
+};
+
+const getPlannedTasks = async (req, res) => {
+    try {
+        // Get today's date
+        const today = new Date();
+        today.setHours(23, 59, 59, 999); // Set to start of day for accurate comparison
+        
+        // Fetch tasks with a date greater than today (future dates)
+        const plannedTasks = await Task_schema.find({ date: { $gt: today } });
+        
+        if (!plannedTasks.length) {
+            return res.status(404).json({ msg: "No planned tasks found." });
+        }
+
+        res.status(200).json({ success: true, tasks: plannedTasks });
+    } catch (err) {
+        res.status(500).json({ success: false, msg: err.message });
+    }
+};
+
+module.exports = { getAllTasks, getSingleTask, postTasks, patchTasks, deleteTasks, getAllTasks1, getPlannedTasks };

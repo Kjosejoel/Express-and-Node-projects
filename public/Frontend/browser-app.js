@@ -193,3 +193,40 @@ async function deleteTask(taskId, deleteIcon) {
     console.error("Error deleting task:", error);
   }
 }
+
+async function fetchImportantTasks() {
+  try {
+    const response = await axios.get('api/v1/tasks/filter?important=true');
+    console.log('Fetched Important Tasks:', response.data);
+
+    // Check if tasks are found
+    if (response.data.tasks.length > 0) {
+      displayTiles(response.data.tasks);
+    } else {
+      // If no important tasks found, display a blank screen or a message
+      console.log('No important tasks found.');
+      displayTiles([]); // Clear existing tiles
+    }
+  } catch (error) {
+    console.error('Error fetching important tasks:', error);
+  }
+}
+
+async function fetchPlannedTasks() {
+  try {
+    // Call the backend to get all planned (future) tasks
+    const response = await axios.get('api/v1/tasks/planned');
+    console.log('Fetched Planned Tasks:', response.data);
+
+    if (response.data.tasks.length > 0) {
+      displayTiles(response.data.tasks);
+    } else {
+      console.log('No planned tasks found.');
+      displayTiles([]); // Clear tiles if no tasks found
+    }
+  } catch (error) {
+    console.log('No planned tasks found.');
+    displayTiles([]);
+    console.error('Error fetching planned tasks:', error);
+  }
+}

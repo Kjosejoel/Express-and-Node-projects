@@ -145,10 +145,6 @@ form {
     right: 30px; /* Adjust the positioning to avoid overlap with calendar icon */
 }
   
-#mimportant-icon.active {
-color: gold; /* Highlight color when active */
-}
-
 .completed-task {
     text-decoration: line-through;
     color: grey;
